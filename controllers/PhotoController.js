@@ -1,5 +1,8 @@
 const Photo = require("../models/Photo")
 const User = require("../models/User")
+const fs = require('fs');
+
+const photoPath = "C:/Users/Barretta/Documents/Desenvolvimento/React/ReactGram/backend/uploads/photos/"
 
 const mongoose = require("mongoose")
 
@@ -63,6 +66,14 @@ const deletePhoto = async (req, res) => {
         res
         .status(200)
         .json({id: photo._id, message: "Foto excluída com sucesso."})
+
+        fs.unlink(photoPath + photo.image, (err) => {
+            if (err) {
+                throw err;
+            }
+        
+            console.log("Delete File successfully.");
+        });
         
     } catch (error) {
 
